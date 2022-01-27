@@ -1,0 +1,25 @@
+version : '3.8'
+services:
+  weather-php: 
+    container_name: weather-php
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    volumes:
+      - "../weather-api:/var/www/html/api"
+  weather-nginx:
+    container_name: weather-nginx
+    build:
+       context: ./nginx
+       dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - "../weather-ui/build:/home/projects/demo"
+  weather-redis:
+    image: redis
+    container_name: weather-redis
+    ports:
+      - "6379:6379"
